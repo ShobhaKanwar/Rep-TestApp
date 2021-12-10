@@ -1,0 +1,85 @@
+<html>
+
+  <head>
+    <script>
+      window.fbAsyncInit = function () {
+        FB.init({
+          appId: '4474049812642871',
+          cookie: true,
+          xfbml: true,
+          version: 'v11.0'
+        });
+
+        FB.AppEvents.logPageView();
+
+      };
+
+      (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+      function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+          if (response.status == 'connected') {
+            const userid = response.authResponse.userID
+            FB.api('/me', { fields: 'name, picture, email' }, function (res) {
+              document.getElementById('user').innerHTML = `
+              <ul>
+                <li>Name: ${res.name}</li>
+                <li>Email: ${res.email}</li>
+                <li>FB_ID: ${res.id}</li>
+                <li>Photo: <img src="${res.picture.data.url}"/></li>
+              `;
+              document.getElementById('login').remove();
+            });
+          }
+        });
+      }
+
+      /*
+      {
+          status: 'connected',
+          authResponse: {
+              accessToken: '...',
+              expiresIn:'...',
+              signedRequest:'...',
+              userID:'...'
+          }
+      }
+      status specifies the login status of the person using the app. The status can be one of the following:
+      connected - the person is logged into Facebook, and has logged into your app.
+      not_authorized - the person is logged into Facebook, but has not logged into your app.
+      unknown - the person is not logged into Facebook, so you don't know if they've logged into your app or FB.logout() was called before and therefore, it cannot connect to Facebook.
+      authResponse is included if the status is connected and is made up of the following:
+      accessToken - contains an access token for the person using the app.
+      expiresIn - indicates the UNIX time when the token expires and needs to be renewed.
+      signedRequest - a signed parameter that contains information about the person using the app.
+      userID - the ID of the person using the app.
+      */
+
+    </script>
+
+  </head>
+
+  <body style="display:flex; flex-direction: column; justify-content: space-around; align-items: center;">
+
+    <div id="title">
+      <h1>Feacebook Login Demo</h1>
+    </div>
+
+    <div id="user" style="font-size: 2rem;line-height: 2;">
+
+    </div>
+
+    <div id="login">
+      <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+      </fb:login-button>
+    </div>
+    
+  </body>
+
+</html>

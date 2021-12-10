@@ -1,0 +1,18 @@
+{
+  "name": "facebook-login-heroku-demo",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "http-server",
+    "deploy": "git add . && git commit -m up && git push heroku master",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "#meBhalendra",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^13.0.2"
+  },
+  "description": "- mkdir <project> - cd <project> - code . - npm init -y - npm install http-server - package.json > \"start\" script \"http-server\" - index.html (facebook demo code) - heroku website > register, create new app <project> - heroku login - heroku git:remote -a <project> - git add . && git commit -m up && git push heroku master - facebook developer website  - create app <project><test-version>  - quickstart > choose www > https://<project>.herokuapp.com  - settings: turn on: Login with the JavaScript SDK  - settings: Allowed Domains for the JavaScript SDK: https://<project>.herokuapp.com",
+  "main": "index.js",
+  "devDependencies": {}
+}
